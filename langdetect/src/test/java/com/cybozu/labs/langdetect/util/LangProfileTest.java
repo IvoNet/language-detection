@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.cybozu.labs.langdetect.util;
 
@@ -7,6 +7,7 @@ package com.cybozu.labs.langdetect.util;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -34,7 +35,7 @@ public class LangProfileTest {
      */
     @Test
     public final void testLangProfile() {
-        LangProfile profile = new LangProfile();
+        final LangProfile profile = new LangProfile();
         assertEquals(profile.name, null);
     }
 
@@ -43,7 +44,7 @@ public class LangProfileTest {
      */
     @Test
     public final void testLangProfileStringInt() {
-        LangProfile profile = new LangProfile("en");
+        final LangProfile profile = new LangProfile("en");
         assertEquals(profile.name, "en");
     }
 
@@ -52,23 +53,26 @@ public class LangProfileTest {
      */
     @Test
     public final void testAdd() {
-        LangProfile profile = new LangProfile("en");
+        final LangProfile profile = new LangProfile("en");
         profile.add("a");
-        assertEquals((int)profile.freq.get("a"), 1);
+        assertEquals((int) profile.freq
+                                  .get("a"), 1);
         profile.add("a");
-        assertEquals((int)profile.freq.get("a"), 2);
+        assertEquals((int) profile.freq
+                                  .get("a"), 2);
         profile.omitLessFreq();
     }
 
-    
+
     /**
      * Illegal call test for {@link LangProfile#add(String)}
      */
     @Test
     public final void testAddIllegally1() {
-        LangProfile profile = new LangProfile(); // Illegal ( available for only JSONIC ) but ignore  
+        final LangProfile profile = new LangProfile(); // Illegal ( available for only JSONIC ) but ignore
         profile.add("a"); // ignore
-        assertEquals(profile.freq.get("a"), null); // ignored
+        assertEquals(profile.freq
+                            .get("a"), null); // ignored
     }
 
     /**
@@ -76,35 +80,46 @@ public class LangProfileTest {
      */
     @Test
     public final void testAddIllegally2() {
-        LangProfile profile = new LangProfile("en");
+        final LangProfile profile = new LangProfile("en");
         profile.add("a");
         profile.add("");  // Illegal (string's length of parameter must be between 1 and 3) but ignore
         profile.add("abcd");  // as well
-        assertEquals((int)profile.freq.get("a"), 1);
-        assertEquals(profile.freq.get(""), null);     // ignored
-        assertEquals(profile.freq.get("abcd"), null); // ignored
-        
+        assertEquals((int) profile.freq
+                                  .get("a"), 1);
+        assertEquals(profile.freq
+                            .get(""), null);     // ignored
+        assertEquals(profile.freq
+                            .get("abcd"), null); // ignored
+
     }
-    
+
     /**
      * Test method for {@link com.cybozu.labs.langdetect.util.LangProfile#omitLessFreq()}.
      */
     @Test
     public final void testOmitLessFreq() {
-        LangProfile profile = new LangProfile("en");
-        String[] grams = "a b c \u3042 \u3044 \u3046 \u3048 \u304a \u304b \u304c \u304d \u304e \u304f".split(" ");
-        for (int i=0;i<5;++i) for (String g : grams) {
-            profile.add(g);
+        final LangProfile profile = new LangProfile("en");
+        final String[] grams = "a b c \u3042 \u3044 \u3046 \u3048 \u304a \u304b \u304c \u304d \u304e \u304f".split(" ");
+        for (int i = 0; i < 5; ++i) {
+            for (String g : grams) {
+                profile.add(g);
+            }
         }
         profile.add("\u3050");
 
-        assertEquals((int)profile.freq.get("a"), 5);
-        assertEquals((int)profile.freq.get("\u3042"), 5);
-        assertEquals((int)profile.freq.get("\u3050"), 1);
+        assertEquals((int) profile.freq
+                                  .get("a"), 5);
+        assertEquals((int) profile.freq
+                                  .get("\u3042"), 5);
+        assertEquals((int) profile.freq
+                                  .get("\u3050"), 1);
         profile.omitLessFreq();
-        assertEquals(profile.freq.get("a"), null); // omitted
-        assertEquals((int)profile.freq.get("\u3042"), 5);
-        assertEquals(profile.freq.get("\u3050"), null); // omitted
+        assertEquals(profile.freq
+                            .get("a"), null); // omitted
+        assertEquals((int) profile.freq
+                                  .get("\u3042"), 5);
+        assertEquals(profile.freq
+                            .get("\u3050"), null); // omitted
     }
 
     /**
@@ -112,7 +127,7 @@ public class LangProfileTest {
      */
     @Test
     public final void testOmitLessFreqIllegally() {
-        LangProfile profile = new LangProfile();
+        final LangProfile profile = new LangProfile();
         profile.omitLessFreq();  // ignore
     }
 

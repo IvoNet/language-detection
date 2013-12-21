@@ -26,7 +26,7 @@ public class LangDetectTest {
 
             // Detect
             startTime = System.currentTimeMillis();
-            Detector detector = DetectorFactory.create();
+            final Detector detector = DetectorFactory.create();
             detector.append("The quick brown fox jumps over the lazy dog.");
             lang = detector.detect();
             System.out.println("Detection finished in " + (System.currentTimeMillis() - startTime) + " ms");
@@ -34,13 +34,13 @@ public class LangDetectTest {
             // Get probabilities
             langlist = detector.getProbabilities();
 
-        } catch (LangDetectException e) {
+        } catch (final LangDetectException e) {
             System.err.println("Detection failed");
             e.printStackTrace();
         }
 
         System.out.println("Detected language: " + lang);
-        for (Language s : langlist) {
+        for (final Language s : langlist) {
             System.out.println(s);
         }
 

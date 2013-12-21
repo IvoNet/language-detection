@@ -1,43 +1,62 @@
 package com.cybozu.labs.langdetect;
 
+import com.cybozu.labs.langdetect.util.LangProfile;
+import com.rmtheis.langdetect.profile.AF;
+import com.rmtheis.langdetect.profile.BG;
+import com.rmtheis.langdetect.profile.CA;
+import com.rmtheis.langdetect.profile.CY;
+import com.rmtheis.langdetect.profile.DA;
+import com.rmtheis.langdetect.profile.EN;
+import com.rmtheis.langdetect.profile.ES;
+import com.rmtheis.langdetect.profile.EU;
+import com.rmtheis.langdetect.profile.FR;
+import com.rmtheis.langdetect.profile.GL;
+import com.rmtheis.langdetect.profile.HT;
+import com.rmtheis.langdetect.profile.IS;
+import com.rmtheis.langdetect.profile.IT;
+import com.rmtheis.langdetect.profile.MK;
+import com.rmtheis.langdetect.profile.NL;
+import com.rmtheis.langdetect.profile.NO;
+import com.rmtheis.langdetect.profile.OC;
+import com.rmtheis.langdetect.profile.PT;
+import com.rmtheis.langdetect.profile.RO;
+import com.rmtheis.langdetect.profile.SV;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.cybozu.labs.langdetect.util.LangProfile;
-import com.rmtheis.langdetect.profile.*;
-
 /**
  * Language Detector Factory Class
- * 
+ *
  * This class manages an initialization and constructions of {@link Detector}. 
- * 
+ *
  * Before using language detection library, 
- * load profiles with {@link DetectorFactory#loadProfile(String)} method
+ * load profiles with {@link DetectorFactory#loadProfile(java.util.List)} method
  * and set initialization parameters.
- * 
+ *
  * When the language detection,
  * construct Detector instance via {@link DetectorFactory#create()}.
  * See also {@link Detector}'s sample code.
- * 
+ *
  * <ul>
  * <li>4x faster improvement based on Elmer Garduno's code. Thanks!</li>
  * </ul>
- * 
+ *
  * @see Detector
  * @author Nakatani Shuyo
+ * @author ivonet
  */
 public class DetectorFactory {
-    public HashMap<String, double[]> wordLangProbMap;
-    public ArrayList<String> langlist;
-    private static List<LangProfile> profilelist;
-    private static boolean isProfileListLoaded = false;
+    public static final HashMap<String, double[]> wordLangProbMap;
+    public static final ArrayList<String> langlist;
+    private static final List<LangProfile> profilelist;
     public Long seed = null;
-    
-    private DetectorFactory() {
-        wordLangProbMap = new HashMap<String, double[]>();        
+
+    static {
+        wordLangProbMap = new HashMap<String, double[]>();
         langlist = new ArrayList<String>();
         profilelist = Arrays.asList(
                 (new AF()).getLangProfile(), // Afrikaans
@@ -110,37 +129,38 @@ public class DetectorFactory {
                 (new CY()).getLangProfile() // Welsh
                 //(new YI()).getLangProfile() // Yiddish
 
-        ); 
+        );
     }
-    static private DetectorFactory instance_ = new DetectorFactory();
 
-    public static void loadProfile(List<LangProfile> profiles) {
-      int index = 0;
-      int langsize = profiles.size();
-      for (LangProfile profile: profiles) {
-        addProfile(profile, index, langsize);
-        ++index;
+    private DetectorFactory() {
+    }
+
+    private static final DetectorFactory instance_ = new DetectorFactory();
+
+    public static void loadProfile(final List<LangProfile> profiles) {
+        int index = 0;
+        final int langsize = profiles.size();
+        for (final LangProfile profile : profiles) {
+            addProfile(profile, index, langsize);
+            ++index;
       }
 
     }
 
-    /**
-     * @param profile
-     * @param langsize 
-     * @param index 
-     * @throws LangDetectException 
-     */
-    static /* package scope */ void addProfile(LangProfile profile, int index, int langsize) {
-        String lang = profile.name;
-        instance_.langlist.add(lang);
-        for (String word: profile.freq.keySet()) {
-            if (!instance_.wordLangProbMap.containsKey(word)) {
-                instance_.wordLangProbMap.put(word, new double[langsize]);
+    static /* package scope */ void addProfile(final LangProfile profile, final int index, final int langsize) {
+        final String lang = profile.name;
+        langlist.add(lang);
+        for (final String word : profile.freq
+                                        .keySet()) {
+            if (!wordLangProbMap.containsKey(word)) {
+                wordLangProbMap.put(word, new double[langsize]);
             }
-            int length = word.length();
-            if (length >= 1 && length <= 3) {
-                double prob = profile.freq.get(word).doubleValue() / profile.n_words[length - 1];
-                instance_.wordLangProbMap.get(word)[index] = prob;
+            final int length = word.length();
+            if ((length >= 1) && (length <= 3)) {
+                final double prob = profile.freq
+                                           .get(word)
+                                           .doubleValue() / profile.n_words[length - 1];
+                wordLangProbMap.get(word)[index] = prob;
             }
         }
     }
@@ -148,49 +168,48 @@ public class DetectorFactory {
     /**
      * Clear loaded language profiles (reinitialization to be available)
      */
-    static public void clear() {
-        instance_.langlist.clear();
-        instance_.wordLangProbMap.clear();
+    public static void clear() {
+        langlist.clear();
+        wordLangProbMap.clear();
     }
 
     /**
      * Construct Detector instance
-     * 
+     *
      * @return Detector instance
-     * @throws LangDetectException 
+     * @throws LangDetectException
      */
-    static public Detector create() {
+    public static Detector create() {
         return createDetector();
     }
 
     /**
      * Construct Detector instance with smoothing parameter 
-     * 
+     *
      * @param alpha smoothing parameter (default value = 0.5)
      * @return Detector instance
-     * @throws LangDetectException 
+     * @throws LangDetectException
      */
-    public static Detector create(double alpha) throws LangDetectException {
-        Detector detector = createDetector();
+    public static Detector create(final double alpha) throws LangDetectException {
+        final Detector detector = createDetector();
         detector.setAlpha(alpha);
         return detector;
     }
 
-    static private Detector createDetector() {
-        Detector detector = new Detector(instance_);
+    private static Detector createDetector() {
+        final Detector detector = new Detector(instance_);
         // Check whether probabilities have already been loaded
-        if (!isProfileListLoaded) {
-            DetectorFactory.loadProfile(profilelist);
-            isProfileListLoaded = true;
+        if (wordLangProbMap.isEmpty()) {
+            loadProfile(profilelist);
         }
         return detector;
     }
-    
-    public static void setSeed(long seed) {
+
+    public static void setSeed(final long seed) {
         instance_.seed = seed;
     }
-    
-    public static final List<String> getLangList() {
-        return Collections.unmodifiableList(instance_.langlist);
+
+    public static List<String> getLangList() {
+        return Collections.unmodifiableList(langlist);
     }
 }

@@ -1,11 +1,12 @@
 /**
- * 
+ *
  */
 package com.cybozu.labs.langdetect.util;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 import org.testng.annotations.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -94,7 +95,7 @@ public class NGramTest {
      */
     @Test
     public final void testNGram() {
-        NGram ngram = new NGram();
+        final NGram ngram = new NGram();
         assertEquals(ngram.get(0), null);
         assertEquals(ngram.get(1), null);
         assertEquals(ngram.get(2), null);
@@ -144,13 +145,13 @@ public class NGramTest {
         assertEquals(ngram.get(3), null);
 
     }
- 
+
     /**
      * Test method for {@link NGram#get(int)} and {@link NGram#addChar(char)}
      */
     @Test
     public final void testNGram3() {
-        NGram ngram = new NGram();
+        final NGram ngram = new NGram();
 
         ngram.addChar('A');
         assertEquals(ngram.get(1), "A");
@@ -161,14 +162,14 @@ public class NGramTest {
         assertEquals(ngram.get(1), null);
         assertEquals(ngram.get(2), "A ");
         assertEquals(ngram.get(3), " A ");
-        
+
         ngram.addChar('B');
         assertEquals(ngram.get(1), "B");
         assertEquals(ngram.get(2), " B");
         assertEquals(ngram.get(3), null);
-       
+
     }
- 
+
     /**
      * Test method for {@link NGram#get(int)} and {@link NGram#addChar(char)}
      */

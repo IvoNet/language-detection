@@ -4,6 +4,7 @@
 package com.cybozu.labs.langdetect;
 
 import org.testng.annotations.Test;
+
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -17,12 +18,12 @@ public class LanguageTest {
      */
     @Test
     public final void testLanguage() {
-        Language lang = new Language(null, 0);
+        final Language lang = new Language(null, 0);
         assertEquals(lang.lang, null);
         assertEquals(lang.prob, 0.0, 0.0001);
         assertEquals(lang.toString(), "");
-        
-        Language lang2 = new Language("en", 1.0);
+
+        final Language lang2 = new Language("en", 1.0);
         assertEquals(lang2.lang, "en");
         assertEquals(lang2.prob, 1.0, 0.0001);
         assertEquals(lang2.toString(), "en:1.0");
