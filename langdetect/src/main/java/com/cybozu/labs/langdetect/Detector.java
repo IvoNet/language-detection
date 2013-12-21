@@ -86,8 +86,8 @@ public class Detector {
      * @param factory {@link DetectorFactory} instance (only DetectorFactory inside)
      */
     public Detector(final DetectorFactory factory) {
-        this.wordLangProbMap = factory.wordLangProbMap;
-        this.langlist = factory.langlist;
+        this.wordLangProbMap = DetectorFactory.wordLangProbMap;
+        this.langlist = DetectorFactory.langlist;
         this.text = new StringBuffer();
         this.seed = factory.seed;
     }
@@ -170,17 +170,17 @@ public class Detector {
      * If the total size of target text exceeds the limit size specified by {@link Detector#setMaxTextLength(int)},
      * the rest is cut down.
      *
-     * @param text the target text to append
+     * @param input the target text to append
      */
-    public void append(String text) {
-        text = URL_REGEX.matcher(text)
-                        .replaceAll(" ");
-        text = MAIL_REGEX.matcher(text)
+    public void append(String input) {
+        input = URL_REGEX.matcher(input)
                          .replaceAll(" ");
-        text = NGram.normalize_vi(text);
+        input = MAIL_REGEX.matcher(input)
+                          .replaceAll(" ");
+        input = NGram.normalize_vi(input);
         char pre = 0;
-        for (int i = 0; (i < text.length()) && (i < this.max_text_length); ++i) {
-            final char c = text.charAt(i);
+        for (int i = 0; (i < input.length()) && (i < this.max_text_length); ++i) {
+            final char c = input.charAt(i);
             if ((c != ' ') || (pre != ' ')) {
                 this.text
                         .append(c);
@@ -238,6 +238,7 @@ public class Detector {
 
     public void clear() {
         this.text = new StringBuffer();
+        this.langprob = null;
     }
 
     /**
