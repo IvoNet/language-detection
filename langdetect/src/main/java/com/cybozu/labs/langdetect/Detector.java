@@ -242,6 +242,22 @@ public class Detector {
     }
 
     /**
+     * Detects the language of the given input.
+     *
+     * @param input a string of text.
+     * @return detected language name which has most probability or "unknown" on error or not found.
+     */
+    public String detect(final String input) {
+        clear();
+        append(input);
+        try {
+            return detect();
+        } catch (final LangDetectException ignore) {
+            return UNKNOWN_LANG;
+        }
+    }
+
+    /**
      * Get language candidates which have high probabilities
      * @return possible languages list (whose probabilities are over PROB_THRESHOLD,
      * ordered by probabilities descendant
