@@ -1,50 +1,40 @@
 # language-detection
 * * * 
 
-[Language detection](http://en.wikipedia.org/wiki/Language_detection) for Android: Given a string 
-of text, identify what language the text is written in.
+Given a string of text, identify what language the text is written in.
+(origionally for android but I seen no reason for it. It is java so.....)
 
 This project is a fork of an excellent Java language detection library 
 ([language-detection](http://code.google.com/p/language-detection/)) written by Nakatani Shuyo. 
 The original git version control history and commit messages are retained in this project.
 
-## Changes
 
-I've made two significant changes to the original code:
 
-1. Speed enhancements. As an alternative to using JSON-based text files for storing language 
-profiles, a Python script is used to convert language profiles into Java code that can be bundled 
-with an app. With the resulting performance improvement, language detection is fast enough to run 
-acceptably on Android devices.
+## Changes (by IvoNet)
 
-2. Additional language profiles:
+* I'm starting to make some extensive changes to the code because it is not very clean.
+  I love the algorithm and stuff but the code is not very readable
+* I cloned this repository in the hope of using it in my [epub-processor](https://github.com/IvoNet/epub-processor)
+  and I found out that it didn't work quite right when working with multiple threads (it died)
+  So I started refactoring a bit.
+* As far as I know I have not changed anything in the algorithm except maybe for some code cleanup (yet).
 
-- Aragonese
-- Asturian
-- Basque
-- Belarusian
-- Breton
-- Catalan
-- Galician
-- Haitian
-- Icelandic
-- Irish
-- Malay
-- Maltese
-- Occitan
-- Serbian (Cyrillic alphabet)
-- Welsh
-- Yiddish
 
-## Download
+## Build
 
-    git clone git@github.com:rmtheis/language-detection.git
+    mvn -N clean install -f superpom/pom.xml
+    mvn clean install
 
 ## Sample usage
 
 See [the original project on Google Code](http://code.google.com/p/language-detection/).
 
 Set up the language profile list in `DetectorFactory.java`.
+
+OR
+
+    Detector detector = DetectorFactory.create();
+    String language = detector.detect("Hello World I am an English text");
 
 ## Training: Generating language profiles
 
@@ -77,21 +67,9 @@ Maven dependency:
         <dependency>
             <groupId>com.cybozu.labs</groupId>
             <artifactId>langdetect</artifactId>
-            <version>${com.cybozu.labs.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
-## Android settings
-
-The hard-coded n-grams hashmap language profiles in this project may lead to memory problems 
-during the build of an Android project containing the language profiles.
- 
-To work around this, change the default max heap size setting for dx to 
-
-    defaultMx="-Xmx2048M" 
-
-in `android-sdk/platform-tools/dx` (or `dx.bat` on Windows).
-
-Building with ant may give better results than Eclipse.
 
 ## License
 
