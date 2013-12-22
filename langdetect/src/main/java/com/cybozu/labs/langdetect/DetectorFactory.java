@@ -163,7 +163,7 @@ public class DetectorFactory {
         for (final LangProfile profile : profiles) {
             addProfile(profile, index, langsize);
             ++index;
-      }
+        }
 
     }
 
