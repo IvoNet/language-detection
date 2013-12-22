@@ -1,73 +1,43 @@
 package com.cybozu.labs.langdetect;
 
 import com.cybozu.labs.langdetect.util.LangProfile;
-import com.rmtheis.langdetect.profile.AF;
-import com.rmtheis.langdetect.profile.AN;
 import com.rmtheis.langdetect.profile.AR;
-import com.rmtheis.langdetect.profile.AST;
-import com.rmtheis.langdetect.profile.BE;
 import com.rmtheis.langdetect.profile.BG;
-import com.rmtheis.langdetect.profile.BN;
-import com.rmtheis.langdetect.profile.BR;
 import com.rmtheis.langdetect.profile.CA;
 import com.rmtheis.langdetect.profile.CS;
-import com.rmtheis.langdetect.profile.CY;
 import com.rmtheis.langdetect.profile.DA;
 import com.rmtheis.langdetect.profile.DE;
 import com.rmtheis.langdetect.profile.EL;
 import com.rmtheis.langdetect.profile.EN;
 import com.rmtheis.langdetect.profile.ES;
 import com.rmtheis.langdetect.profile.ET;
-import com.rmtheis.langdetect.profile.EU;
-import com.rmtheis.langdetect.profile.FA;
 import com.rmtheis.langdetect.profile.FI;
 import com.rmtheis.langdetect.profile.FR;
-import com.rmtheis.langdetect.profile.GA;
 import com.rmtheis.langdetect.profile.GL;
-import com.rmtheis.langdetect.profile.GU;
 import com.rmtheis.langdetect.profile.HE;
 import com.rmtheis.langdetect.profile.HI;
 import com.rmtheis.langdetect.profile.HR;
 import com.rmtheis.langdetect.profile.HT;
 import com.rmtheis.langdetect.profile.HU;
 import com.rmtheis.langdetect.profile.ID;
-import com.rmtheis.langdetect.profile.IS;
 import com.rmtheis.langdetect.profile.IT;
 import com.rmtheis.langdetect.profile.JA;
-import com.rmtheis.langdetect.profile.KN;
-import com.rmtheis.langdetect.profile.KO;
 import com.rmtheis.langdetect.profile.LT;
 import com.rmtheis.langdetect.profile.LV;
 import com.rmtheis.langdetect.profile.MK;
-import com.rmtheis.langdetect.profile.ML;
-import com.rmtheis.langdetect.profile.MR;
-import com.rmtheis.langdetect.profile.MS;
 import com.rmtheis.langdetect.profile.MT;
 import com.rmtheis.langdetect.profile.NE;
 import com.rmtheis.langdetect.profile.NL;
 import com.rmtheis.langdetect.profile.NO;
-import com.rmtheis.langdetect.profile.OC;
-import com.rmtheis.langdetect.profile.PA;
 import com.rmtheis.langdetect.profile.PL;
 import com.rmtheis.langdetect.profile.PT;
 import com.rmtheis.langdetect.profile.RO;
 import com.rmtheis.langdetect.profile.RU;
-import com.rmtheis.langdetect.profile.SK;
-import com.rmtheis.langdetect.profile.SL;
-import com.rmtheis.langdetect.profile.SO;
-import com.rmtheis.langdetect.profile.SQ;
-import com.rmtheis.langdetect.profile.SR;
 import com.rmtheis.langdetect.profile.SV;
-import com.rmtheis.langdetect.profile.SW;
 import com.rmtheis.langdetect.profile.TA;
-import com.rmtheis.langdetect.profile.TE;
-import com.rmtheis.langdetect.profile.TH;
-import com.rmtheis.langdetect.profile.TL;
 import com.rmtheis.langdetect.profile.TR;
 import com.rmtheis.langdetect.profile.UK;
-import com.rmtheis.langdetect.profile.UR;
 import com.rmtheis.langdetect.profile.VI;
-import com.rmtheis.langdetect.profile.YI;
 import com.rmtheis.langdetect.profile.ZHCN;
 import com.rmtheis.langdetect.profile.ZHTW;
 
@@ -108,15 +78,15 @@ public class DetectorFactory {
         wordLangProbMap = new HashMap<String, double[]>();
         langlist = new ArrayList<String>();
         profilelist = Arrays.asList(
-                (new AF()).getLangProfile(), // Afrikaans
-                (new SQ()).getLangProfile(), // Albanian
+//                (new AF()).getLangProfile(), // Afrikaans
+//                (new SQ()).getLangProfile(), // Albanian
                 (new AR()).getLangProfile(), // Arabic
-                (new AN()).getLangProfile(), // Aragonese
-                (new AST()).getLangProfile(), // Asturian
-                (new EU()).getLangProfile(), // Basque
-                (new BE()).getLangProfile(), // Belarusian
-                (new BN()).getLangProfile(), // Bengali
-                (new BR()).getLangProfile(), // Breton
+//                (new AN()).getLangProfile(), // Aragonese
+//                (new AST()).getLangProfile(), // Asturian
+//                (new EU()).getLangProfile(), // Basque
+//                (new BE()).getLangProfile(), // Belarusian
+//                (new BN()).getLangProfile(), // Bengali
+//                (new BR()).getLangProfile(), // Breton
                 (new BG()).getLangProfile(), // Bulgarian
                 (new CA()).getLangProfile(), // Catalan
                 (new ZHCN()).getLangProfile(), // Chinese (Simplified)
@@ -132,51 +102,52 @@ public class DetectorFactory {
                 (new GL()).getLangProfile(), // Galician
                 (new DE()).getLangProfile(), // German
                 (new EL()).getLangProfile(), // Greek
-                (new GU()).getLangProfile(), // Gujarati
+//                (new GU()).getLangProfile(), // Gujarati
                 (new HT()).getLangProfile(), // Haitian
                 (new HE()).getLangProfile(), // Hebrew
                 (new HI()).getLangProfile(), // Hindi
                 (new HU()).getLangProfile(), // Hungarian
-                (new IS()).getLangProfile(), // Icelandic
+//                (new IS()).getLangProfile(), // Icelandic
                 (new ID()).getLangProfile(), // Indonesian
-                (new GA()).getLangProfile(), // Irish
+//                (new GA()).getLangProfile(), // Irish
                 (new IT()).getLangProfile(), // Italian
                 (new JA()).getLangProfile(), // Japanese
-                (new KN()).getLangProfile(), // Kannada
-                (new KO()).getLangProfile(), // Korean
+//                (new KN()).getLangProfile(), // Kannada
+//                (new KN()).getLangProfile(), // Kannada
+//                (new KO()).getLangProfile(), // Korean
                 (new LV()).getLangProfile(), // Latvian
                 (new LT()).getLangProfile(), // Lithuanian
                 (new MK()).getLangProfile(), // Macedonian
-                (new MS()).getLangProfile(), // Malay
-                (new ML()).getLangProfile(), // Malayalam
+//                (new MS()).getLangProfile(), // Malay
+//                (new ML()).getLangProfile(), // Malayalam
                 (new MT()).getLangProfile(), // Maltese
-                (new MR()).getLangProfile(), // Marathi
+//                (new MR()).getLangProfile(), // Marathi
                 (new NE()).getLangProfile(), // Nepali
                 (new NO()).getLangProfile(), // Norwegian
-                (new OC()).getLangProfile(), // Occitan
-                (new PA()).getLangProfile(), // Panjabi
-                (new FA()).getLangProfile(), // Persian
+//                (new OC()).getLangProfile(), // Occitan
+//                (new PA()).getLangProfile(), // Panjabi
+//                (new FA()).getLangProfile(), // Persian
                 (new PL()).getLangProfile(), // Polish
                 (new PT()).getLangProfile(), // Portuguese
                 (new RO()).getLangProfile(), // Romanian
                 (new RU()).getLangProfile(), // Russian
-                (new SR()).getLangProfile(), // Serbian
-                (new SK()).getLangProfile(), // Slovak
-                (new SL()).getLangProfile(), // Slovene
-                (new SO()).getLangProfile(), // Somali
+//                (new SR()).getLangProfile(), // Serbian
+//                (new SK()).getLangProfile(), // Slovak
+//                (new SL()).getLangProfile(), // Slovene
+//                (new SO()).getLangProfile(), // Somali
                 (new ES()).getLangProfile(), // Spanish
-                (new SW()).getLangProfile(), // Swahili
+//                (new SW()).getLangProfile(), // Swahili
                 (new SV()).getLangProfile(), // Swedish
-                (new TL()).getLangProfile(), // Tagalog
+//                (new TL()).getLangProfile(), // Tagalog
                 (new TA()).getLangProfile(), // Tamil
-                (new TE()).getLangProfile(), // Telugu
-                (new TH()).getLangProfile(), // Thai
+//                (new TE()).getLangProfile(), // Telugu
+//                (new TH()).getLangProfile(), // Thai
                 (new TR()).getLangProfile(), // Turkish
                 (new UK()).getLangProfile(), // Ukrainian
-                (new UR()).getLangProfile(), // Urdu
-                (new VI()).getLangProfile(), // Vietnamese
-                (new CY()).getLangProfile(), // Welsh
-                (new YI()).getLangProfile() // Yiddish
+//                (new UR()).getLangProfile(), // Urdu
+                (new VI()).getLangProfile() // Vietnamese
+//                (new CY()).getLangProfile() // Welsh
+//                (new YI()).getLangProfile() // Yiddish
 
         );
     }
@@ -247,7 +218,6 @@ public class DetectorFactory {
 
     private static Detector createDetector() {
         final Detector detector = new Detector(instance_);
-        // Check whether probabilities have already been loaded
         if (wordLangProbMap.isEmpty()) {
             loadProfile(profilelist);
         }
